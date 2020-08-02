@@ -58,10 +58,10 @@ def currency():
             source = response.read()
             curr_dict = json.loads(source)
             base_rate = curr_dict['rates']['ILS']
-            USD = 'US$: ' + str(base_rate)
-            EUR = '€: ' + str(base_rate / curr_dict['rates']['EUR'])
-            GBP = '£: ' + str(base_rate / curr_dict['rates']['GBP'])
-            JPY = '¥: ' + str(base_rate / curr_dict['rates']['JPY'])
+            USD = '$ - USD: ' + str(round(base_rate, 4))
+            EUR = '€ - EUR: ' + str(round(base_rate / curr_dict['rates']['EUR'], 4))
+            GBP = '£ - GBP: ' + str(round(base_rate / curr_dict['rates']['GBP'], 4))
+            JPY = '¥ - JPY: ' + str(round(base_rate / curr_dict['rates']['JPY'], 4))
             return [USD, EUR, GBP, JPY]
     except:
         return ['שגיאה' ,'לא ניתן להציג שערי מט"ח']
