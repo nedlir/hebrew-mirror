@@ -1,4 +1,6 @@
 / __pycache__/
 /testing/
 .env
+/tempCodeRunnerFile.py
+/templates/tempCodeRunnerFile.html
 *.pyc

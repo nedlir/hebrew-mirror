@@ -1,0 +1,50 @@
+<html>
+   <head>
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
+      <script src="{{ url_for('static', filename='jquery.min.js')}}"></script>
+      <script src="{{ url_for('static', filename='settings.js')}}"></script>
+   </head>
+   <body>
+      <div class="container">
+         <!--Top-->
+         <!--Weather-->
+         <div class="section" style="text-align: right;">מחר יהיה חם ומגניב!</div>
+         <!--Clock-->
+         <div class="section" style="text-align: center;">
+            <!-- 
+               <div class="clock">
+                   <div class="hand hour"></div>
+                   <div class="hand minute"></div>
+                   <div class="hand second"></div>
+                 </div>
+               -->
+         </div>
+         <!--Date and Time-->
+         <div class="section" style="text-align: left;">            
+            {{gregorian_date}}<br>
+            {{hebrew_date}}<br> 
+            {{time}}
+         </div>
+         <!--Middle-->
+         <div class="section" style="text-align: right;">4</div>
+         <div class="section" style="text-align: center;">5</div>
+         <div class="section" style="text-align: left;">6</div>
+         <!--Bottom-->
+         <!--News Updates-->
+         <div class="section" style="text-align: right;">
+            <script>
+               var tickerItems = []
+                {% for news in news_list %}
+                tickerItems.push("{{ news }}");
+                {% endfor %}
+            </script>
+            <span id="ticker" /></span>
+         </div>
+         <div class="section" style="text-align: center;">8</div>
+         <!--Currency Updates-->
+         <div class="section" style="text-align: left;">
+            {{currency_list}}
+         </div>
+      </div>
+   </body>
+</html>
