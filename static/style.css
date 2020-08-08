@@ -17,3 +17,18 @@ body {
 	padding: 15%;
 	font-size: 150%;
 }
+
+/* CURRENCY */
+       
+       * { color:#fff; text-decoration: none;}
+       
+       .wrap{
+          animation: caret 1s steps(1) infinite;
+          border-right: 0.08em solid #fff;
+         padding-right: 1px;
+       }
+       @keyframes caret {
+         50% {
+           border-color: transparent;
+         }
+       }

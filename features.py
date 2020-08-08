@@ -58,15 +58,25 @@ def currency():
             source = response.read()
             curr_dict = json.loads(source)
             base_rate = curr_dict['rates']['ILS']
-            USD = '$ - USD: ' + str(round(base_rate, 4))
-            EUR = '€ - EUR: ' + str(round(base_rate / curr_dict['rates']['EUR'], 4))
-            GBP = '£ - GBP: ' + str(round(base_rate / curr_dict['rates']['GBP'], 4))
-            JPY = '¥ - JPY: ' + str(round(base_rate / curr_dict['rates']['JPY'], 4))
+            USD = '$USD: ' + str(round(base_rate, 4))
+            EUR = '€EUR: ' + str(round(base_rate / curr_dict['rates']['EUR'], 4))
+            GBP = '£GBP: ' + str(round(base_rate / curr_dict['rates']['GBP'], 4))
+            JPY = '¥JPY: ' + str(round(base_rate / curr_dict['rates']['JPY'], 4))
             return [USD, EUR, GBP, JPY]
     except:
-        return ['שגיאה' ,'לא ניתן להציג שערי מט"ח']
+        return ['No MATAH for you!' ,'Error Ah Sheli Hagibor']
 
 
+def currency_string():
+    currency_string = '['
+    currency_list = currency()
+    for item in currency_list:
+        currency_string += f'"{item}", '
+    currency_string = currency_string[0:-2]
+    currency_string += ']'
+    return currency_string
+    
+    
 def news():
     # Sign-up for a free API Key at:
     # https://newsapi.org/s/israel-news-api

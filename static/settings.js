@@ -1,28 +1,58 @@
-////////////
-// CLOCK //
-//////////
-var currentSec = getSecondsToday();
+///////////////
+// CURRENCY //
+/////////////
+var TxtType = function(el, toRotate, period) {
+	this.toRotate = toRotate;
+	this.el = el;
+	this.loopNum = 0;
+	this.period = parseInt(period, 10) || 2000;
+	this.txt = '';
+	this.tick();
+	this.isDeleting = false;
+};
 
-var seconds = (currentSec / 60) % 1;
-var minutes = (currentSec / 3600) % 1;
-var hours = (currentSec / 43200) % 1;
+TxtType.prototype.tick = function() {
+ 
+	var i = this.loopNum % this.toRotate.length;
+	var fullTxt = this.toRotate[i];
 
-setTime(60 * seconds, "second");
-setTime(3600 * minutes, "minute");
-setTime(43200 * hours, "hour");
+	if (this.isDeleting) {
+	this.txt = fullTxt.substring(0, this.txt.length - 1);
+	} else {
+	this.txt = fullTxt.substring(0, this.txt.length + 1);
+	}
 
-function setTime(left, hand) {
-	$(".clock__" + hand).css("animation-delay", "" + left * -1 + "s");
-}
+	this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
 
-function getSecondsToday() {
-	let now = new Date();
+	var that = this;
+	var delta = 200 - Math.random() * 100;
 
-	let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+	if (this.isDeleting) { delta /= 2; }
 
-	let diff = now - today;
-	return Math.round(diff / 1000);
-}
+	if (!this.isDeleting && this.txt === fullTxt) {
+	delta = this.period;
+	this.isDeleting = true;
+	} else if (this.isDeleting && this.txt === '') {
+	this.isDeleting = false;
+	this.loopNum++;
+	delta = 500;
+	}
+
+	setTimeout(function() {
+	that.tick();
+	}, delta);
+};
+
+window.onload = function() {
+	var elements = document.getElementsByClassName('typewrite');
+	for (var i=0; i<elements.length; i++) {
+		var toRotate = elements[i].getAttribute('data-type');
+		var period = elements[i].getAttribute('data-period');
+		if (toRotate) {
+		  new TxtType(elements[i], JSON.parse(toRotate), period);
+		}
+	}
+};
 
 
 //////////////////
@@ -45,8 +75,6 @@ function go_full_screen() {
 //////////////////
 // NEWS TICKER //
 ////////////////
-
-
 var tickerIndex = 0;
 var tickerDuration = 4;
 var ticker;
