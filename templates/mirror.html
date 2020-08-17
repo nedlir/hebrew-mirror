@@ -1,0 +1,82 @@
+<html lang="he">
+   <head>
+      <meta charset="utf-8" />
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
+      <script src="{{ url_for('static', filename='jquery.min.js')}}"></script>
+      <script src="{{ url_for('static', filename='settings.js')}}"></script>
+   </head>
+   <body>
+      <table style="height:100%;width:100%; position: absolute; top: 0; bottom: 0; left: 0; right: 0;border:1px solid">
+         <div class="container">
+            <!--Top-->
+            <tr style="height: 33%;">
+               <td style="width: 33%;">
+                  <!--Weather-->
+                  <div class="section" style="text-align: right;">
+                     <img src="{{weather}}">
+                  </div>
+               </td>
+               <!--Clock-->
+               <td style="width: 33%;">
+                  <div class="section" style="text-align: center;">
+                     2               
+                  </div>
+               </td>
+               <!--Date and Time-->
+               <td style="width: 33%;">
+                  <div class="section" style="text-align: left;">
+                     {{gregorian_date}}<br>
+                     <!--hebrew date-->
+                     <script type="text/javascript" charset="utf-8" src="https://www.hebcal.com/etc/hdate-he.js"></script><br> 
+                     {{time}}
+                  </div>
+               </td>
+            </tr>
+            <!--Middle-->
+            <tr style="height: 33%;">
+               <td style="width: 33%;">
+                  <div class="section" style="text-align: right;">4</div>
+               </td>
+               <td style="width: 33%;">
+                  <div class="section" style="text-align: center;">5</div>
+               </td>
+               <td style="width: 33%;">
+                  <div class="section" style="text-align: left;">6</div>
+               </td>
+            </tr>
+            <!--Bottom-->
+            <tr style="height: 33%;">
+               <!--News Updates-->
+               <td style="width: 33%;">
+                  <div class="section" style="text-align: right;">
+                     <script>
+                        var tickerItems = []
+                         {% for news in news_list %}
+                           var item = "{{ news }}";
+                           item = item.replace(/&#34;/g, "\"");
+                           item = item.replace(/&#39;/g, "\'");
+                           item = item.replace(/&amp;/g, "&");
+                           tickerItems.push(item);
+                         {% endfor %}
+                     </script>
+                     <span id="ticker" /></span>
+                  </div>
+               </td>
+               <td style="width: 33%;">
+                  <div class="section" style="text-align: center;">8</div>
+               </td>
+               <td style="width: 33%;">
+                  <!--Currency Updates-->
+                  <div class="section" style="text-align: left;">
+                     <h1>
+                        <div class="typewrite" data-period="5000" data-type='{{ currency_list }}'>
+                           <span class="wrap"></span>
+                        </div>
+                     </h1>
+                  </div>
+               </td>
+            </tr>
+         </div>
+      </table>
+   </body>
+</html>
